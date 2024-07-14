@@ -1,0 +1,583 @@
+[
+    {
+        "id": "2d23a4c020ae9e3a",
+        "type": "tab",
+        "label": "Flow 1",
+        "disabled": false,
+        "info": "",
+        "env": []
+    },
+    {
+        "id": "d26398c3cff6a48b",
+        "type": "mqtt in",
+        "z": "2d23a4c020ae9e3a",
+        "name": "LIGHT-INTENSITY-YR",
+        "topic": "LIGHT-INTENSITY-YR",
+        "qos": "2",
+        "datatype": "auto-detect",
+        "broker": "e3f52f2e161bc758",
+        "nl": false,
+        "rap": true,
+        "rh": 0,
+        "inputs": 0,
+        "x": 180,
+        "y": 100,
+        "wires": [
+            [
+                "1d3266ed75ca4686",
+                "82a28c24943c3230"
+            ]
+        ]
+    },
+    {
+        "id": "1d3266ed75ca4686",
+        "type": "function",
+        "z": "2d23a4c020ae9e3a",
+        "name": "function to set direction",
+        "func": "if (msg.payload[0] == \"L\"){\n    return {\n        payload: \"left\"\n    }\n}\nif (msg.payload[0] == \"R\"){\n    return {\n        payload: \"right\"\n    }\n}\n",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 450,
+        "y": 100,
+        "wires": [
+            [
+                "c70822922803bdd2"
+            ]
+        ]
+    },
+    {
+        "id": "c70822922803bdd2",
+        "type": "ui_text",
+        "z": "2d23a4c020ae9e3a",
+        "group": "4c50208f3a9787c6",
+        "order": 2,
+        "width": 0,
+        "height": 0,
+        "name": "",
+        "label": "Highest intensity from",
+        "format": "{{msg.payload}}",
+        "layout": "row-left",
+        "className": "",
+        "style": false,
+        "font": "",
+        "fontSize": 16,
+        "color": "#000000",
+        "x": 800,
+        "y": 100,
+        "wires": []
+    },
+    {
+        "id": "82a28c24943c3230",
+        "type": "function",
+        "z": "2d23a4c020ae9e3a",
+        "name": "function to get intensity value",
+        "func": "return {\n    payload: msg.payload.substr(1,5)\n}   ",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 480,
+        "y": 160,
+        "wires": [
+            [
+                "7eb18bc03422f6de",
+                "79de65563cd838e8"
+            ]
+        ]
+    },
+    {
+        "id": "7eb18bc03422f6de",
+        "type": "ui_gauge",
+        "z": "2d23a4c020ae9e3a",
+        "name": "",
+        "group": "4c50208f3a9787c6",
+        "order": 3,
+        "width": 0,
+        "height": 0,
+        "gtype": "gage",
+        "title": "gauge",
+        "label": "units",
+        "format": "{{payload}}",
+        "min": 0,
+        "max": "1",
+        "colors": [
+            "#00b500",
+            "#e6e600",
+            "#ca3838"
+        ],
+        "seg1": "",
+        "seg2": "",
+        "diff": false,
+        "className": "",
+        "x": 770,
+        "y": 160,
+        "wires": []
+    },
+    {
+        "id": "79de65563cd838e8",
+        "type": "ui_chart",
+        "z": "2d23a4c020ae9e3a",
+        "name": "",
+        "group": "4c50208f3a9787c6",
+        "order": 4,
+        "width": 0,
+        "height": 0,
+        "label": "chart",
+        "chartType": "line",
+        "legend": "false",
+        "xformat": "HH:mm:ss",
+        "interpolate": "linear",
+        "nodata": "",
+        "dot": false,
+        "ymin": "",
+        "ymax": "",
+        "removeOlder": 1,
+        "removeOlderPoints": "",
+        "removeOlderUnit": "3600",
+        "cutout": 0,
+        "useOneColor": false,
+        "useUTC": false,
+        "colors": [
+            "#1f77b4",
+            "#aec7e8",
+            "#ff7f0e",
+            "#2ca02c",
+            "#98df8a",
+            "#d62728",
+            "#ff9896",
+            "#9467bd",
+            "#c5b0d5"
+        ],
+        "outputs": 1,
+        "useDifferentColor": false,
+        "className": "",
+        "x": 770,
+        "y": 220,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "ce3dab581c2cf3aa",
+        "type": "ui_dropdown",
+        "z": "2d23a4c020ae9e3a",
+        "name": "",
+        "label": "Tablet",
+        "tooltip": "",
+        "place": "Select option",
+        "group": "ec546fcd77142318",
+        "order": 1,
+        "width": 0,
+        "height": 0,
+        "passthru": true,
+        "multiple": false,
+        "options": [
+            {
+                "label": "A",
+                "value": "A",
+                "type": "str"
+            },
+            {
+                "label": "B",
+                "value": "B",
+                "type": "str"
+            },
+            {
+                "label": "C",
+                "value": "C",
+                "type": "str"
+            },
+            {
+                "label": "Other",
+                "value": "Other",
+                "type": "str"
+            }
+        ],
+        "payload": "",
+        "topic": "topic",
+        "topicType": "msg",
+        "className": "",
+        "x": 150,
+        "y": 380,
+        "wires": [
+            [
+                "1cd2ec55fd4aa943"
+            ]
+        ]
+    },
+    {
+        "id": "1cd2ec55fd4aa943",
+        "type": "switch",
+        "z": "2d23a4c020ae9e3a",
+        "name": "",
+        "property": "payload",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "eq",
+                "v": "A",
+                "vt": "str"
+            },
+            {
+                "t": "eq",
+                "v": "B",
+                "vt": "str"
+            },
+            {
+                "t": "eq",
+                "v": "C",
+                "vt": "str"
+            },
+            {
+                "t": "eq",
+                "v": "Other",
+                "vt": "str"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 4,
+        "x": 350,
+        "y": 380,
+        "wires": [
+            [
+                "c6ca49580ea8b880",
+                "ca29d264bfb68cd5"
+            ],
+            [
+                "02b8f8cf24e42bf6",
+                "d5fd03dc275a8f1b"
+            ],
+            [
+                "1e3bfd5fb6b744ee",
+                "bbd3c30b9dcbba55"
+            ],
+            [
+                "80fd39ae229e6464",
+                "05f2189e74bd37fd"
+            ]
+        ]
+    },
+    {
+        "id": "80fd39ae229e6464",
+        "type": "ui_slider",
+        "z": "2d23a4c020ae9e3a",
+        "name": "Other tablets - Minimum Angle",
+        "label": "Minimum Angle",
+        "tooltip": "",
+        "group": "ec546fcd77142318",
+        "order": 2,
+        "width": 5,
+        "height": 1,
+        "passthru": true,
+        "outs": "all",
+        "topic": "payload",
+        "topicType": "msg",
+        "min": 0,
+        "max": "120",
+        "step": 1,
+        "className": "",
+        "x": 630,
+        "y": 660,
+        "wires": [
+            [
+                "b6fa1dee143de92d",
+                "aa8690497dfe9cd6"
+            ]
+        ]
+    },
+    {
+        "id": "05f2189e74bd37fd",
+        "type": "ui_slider",
+        "z": "2d23a4c020ae9e3a",
+        "name": "Other tablets - Controlling Factor",
+        "label": "Controlling Factor",
+        "tooltip": "",
+        "group": "ec546fcd77142318",
+        "order": 4,
+        "width": 5,
+        "height": 1,
+        "passthru": true,
+        "outs": "all",
+        "topic": "payload",
+        "topicType": "msg",
+        "min": 0,
+        "max": "1",
+        "step": "0.01",
+        "className": "",
+        "x": 630,
+        "y": 720,
+        "wires": [
+            [
+                "a8d34c39d51d0e21",
+                "9ce77b8f44caa69e"
+            ]
+        ]
+    },
+    {
+        "id": "aa8690497dfe9cd6",
+        "type": "mqtt out",
+        "z": "2d23a4c020ae9e3a",
+        "name": "",
+        "topic": "MIN-ANGLE-YR",
+        "qos": "2",
+        "retain": "",
+        "respTopic": "",
+        "contentType": "",
+        "userProps": "",
+        "correl": "",
+        "expiry": "",
+        "broker": "e3f52f2e161bc758",
+        "x": 1060,
+        "y": 400,
+        "wires": []
+    },
+    {
+        "id": "b6fa1dee143de92d",
+        "type": "ui_text",
+        "z": "2d23a4c020ae9e3a",
+        "group": "ec546fcd77142318",
+        "order": 3,
+        "width": 1,
+        "height": 1,
+        "name": "",
+        "label": "",
+        "format": "{{msg.payload}}",
+        "layout": "row-spread",
+        "className": "",
+        "style": false,
+        "font": "",
+        "fontSize": 16,
+        "color": "#000000",
+        "x": 930,
+        "y": 660,
+        "wires": []
+    },
+    {
+        "id": "a8d34c39d51d0e21",
+        "type": "ui_text",
+        "z": "2d23a4c020ae9e3a",
+        "group": "ec546fcd77142318",
+        "order": 5,
+        "width": 1,
+        "height": 1,
+        "name": "",
+        "label": "",
+        "format": "{{msg.payload}}",
+        "layout": "row-spread",
+        "className": "",
+        "style": false,
+        "font": "",
+        "fontSize": 16,
+        "color": "#000000",
+        "x": 930,
+        "y": 720,
+        "wires": []
+    },
+    {
+        "id": "9ce77b8f44caa69e",
+        "type": "mqtt out",
+        "z": "2d23a4c020ae9e3a",
+        "name": "",
+        "topic": "CONTROLLING-FACTOR-YR",
+        "qos": "2",
+        "retain": "",
+        "respTopic": "",
+        "contentType": "",
+        "userProps": "",
+        "correl": "",
+        "expiry": "",
+        "broker": "e3f52f2e161bc758",
+        "x": 1050,
+        "y": 500,
+        "wires": []
+    },
+    {
+        "id": "c6ca49580ea8b880",
+        "type": "function",
+        "z": "2d23a4c020ae9e3a",
+        "name": "tablet A min angle",
+        "func": "\nreturn {\n    payload : 50\n}",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 590,
+        "y": 320,
+        "wires": [
+            [
+                "aa8690497dfe9cd6"
+            ]
+        ]
+    },
+    {
+        "id": "02b8f8cf24e42bf6",
+        "type": "function",
+        "z": "2d23a4c020ae9e3a",
+        "name": "tablet B min angle",
+        "func": "return {\n    payload: 70\n}",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 590,
+        "y": 400,
+        "wires": [
+            [
+                "aa8690497dfe9cd6"
+            ]
+        ]
+    },
+    {
+        "id": "1e3bfd5fb6b744ee",
+        "type": "function",
+        "z": "2d23a4c020ae9e3a",
+        "name": "tablet C min angle",
+        "func": "\nreturn {\n    payload: 90\n}",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 590,
+        "y": 480,
+        "wires": [
+            [
+                "aa8690497dfe9cd6"
+            ]
+        ]
+    },
+    {
+        "id": "ca29d264bfb68cd5",
+        "type": "function",
+        "z": "2d23a4c020ae9e3a",
+        "name": "tablet A cf",
+        "func": "\nreturn {\n    payload : 0.2\n}",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 560,
+        "y": 360,
+        "wires": [
+            [
+                "9ce77b8f44caa69e"
+            ]
+        ]
+    },
+    {
+        "id": "d5fd03dc275a8f1b",
+        "type": "function",
+        "z": "2d23a4c020ae9e3a",
+        "name": "tablet B cf",
+        "func": "\nreturn {\n    payload : 0.4\n}",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 560,
+        "y": 440,
+        "wires": [
+            [
+                "9ce77b8f44caa69e"
+            ]
+        ]
+    },
+    {
+        "id": "bbd3c30b9dcbba55",
+        "type": "function",
+        "z": "2d23a4c020ae9e3a",
+        "name": "tablet C cf",
+        "func": "\nreturn {\n    payload : 0.6\n}",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 560,
+        "y": 520,
+        "wires": [
+            [
+                "9ce77b8f44caa69e"
+            ]
+        ]
+    },
+    {
+        "id": "e3f52f2e161bc758",
+        "type": "mqtt-broker",
+        "name": "",
+        "broker": "test.mosquitto.org",
+        "port": "",
+        "clientid": "",
+        "autoConnect": true,
+        "usetls": false,
+        "protocolVersion": "4",
+        "keepalive": "60",
+        "cleansession": true,
+        "autoUnsubscribe": true,
+        "birthTopic": "",
+        "birthQos": "0",
+        "birthRetain": "false",
+        "birthPayload": "",
+        "birthMsg": {},
+        "closeTopic": "",
+        "closeQos": "0",
+        "closeRetain": "false",
+        "closePayload": "",
+        "closeMsg": {},
+        "willTopic": "",
+        "willQos": "0",
+        "willRetain": "false",
+        "willPayload": "",
+        "willMsg": {},
+        "userProps": "",
+        "sessionExpiry": ""
+    },
+    {
+        "id": "4c50208f3a9787c6",
+        "type": "ui_group",
+        "name": "Light Intensity",
+        "tab": "b295c250ee99f0e8",
+        "order": 1,
+        "disp": true,
+        "width": "6",
+        "collapse": false,
+        "className": ""
+    },
+    {
+        "id": "ec546fcd77142318",
+        "type": "ui_group",
+        "name": "Tablet",
+        "tab": "b295c250ee99f0e8",
+        "order": 2,
+        "disp": true,
+        "width": "6",
+        "collapse": false,
+        "className": ""
+    },
+    {
+        "id": "b295c250ee99f0e8",
+        "type": "ui_tab",
+        "name": "Medibox - Yaseema",
+        "icon": "fa fa-medkit",
+        "order": 2,
+        "disabled": false,
+        "hidden": false
+    }
+]
